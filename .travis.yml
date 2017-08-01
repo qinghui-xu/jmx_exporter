@@ -1,2 +1,16 @@
 language: java
+
 script: mvn verify
+
+before_deploy: mvn package
+
+deploy:
+  provider: releases
+  api_key:
+    secure: KfTyPZ/cZA1TNjR06jKF5XAtk4WcafBhnCeGqCCly8llKlyYF4dE2nQZWnDDAA6l9mjVOGTswyBNtA2EJAZvVN+HkDno6tFntfl5BA5YS7igQa1NtD8CXUHr+fGjso8N+Gxdtis0aNgrVcX1O4XlN7wH251NO15bOSviGdpklEEpGH4tRIWa3e7XNqeGiwVOyafAC1wnZidW3TiEGmLdC/CEHSEckmDrGzXc+GwDy4PwGR98w0wuQp45WExmMxpG2EX75IbdRfHfn+AHmdXl5iRPsREwXgPyR7AqjSZgExRoBQoZ6hGJjVElPwtKngH4fLnvGQ6IMczSX3AtnBL2S7usw4m1HE8W8TMtLumjVykXM1nWaQKAYIjZsAxGS8LNEKnnhiiBng+YH6QXBAPaFZ9fz8Ij10N03X8AyXrv6FgCqNbu4DkvKDMiu5y4o9+xpexX99tqyvvbOmqIN+YgiP4UdF8R+u3b5Q9v+50ybENb7eNfmiPE674J3q3+w0TLF63S78qjkFfi/fEWDQw4cKeaF3lOeP1ngjb47lhoQnf1E8qzz25nQ7MpzVrqQqfMfSXtyHfei/cof7W7Gy9bJ5E/MVTIi7w398dSXNz1Cw92hdWlQdJw4EhTWqxGytQtv6VZjBENK5+AgEf0DpuIL3b2nGEK9A2wvCxiHgH0L+M=
+  file_glob: true
+  file: jmx_prometheus_{javaagent,httpserver}/target/jmx_prometheus_*.jar
+  skip_cleanup: true
+  on:
+    tag: true
+    repo: criteo-forks/jmx_exporter
